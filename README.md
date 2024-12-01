@@ -29,18 +29,18 @@ Kelompok kami memiliki prefix IP *10.79*
 Soal:
     **Sebuah topologi sederhana menggambarkan jaringan New Eridu:**
     <img src="img/topo-soal.png">
-    **Keterangan:
-      - HDD: Berfungsi sebagai DNS Server.
-      - Fairy: Berfungsi sebagai DHCP Server.
-      - Web Servers: HIA, HollowZero.
-     - Client:
-      - Burnice: Memiliki 5 host.
-      - Lycaon: Memiliki 20 host.
-      - Policeboo: Memiliki 30 host.
-      - Caesar: Memiliki 50 host
-      - Ellen: Memiliki 100 host.
-      - Jane: Memiliki 200 host.**
-      
+    Keterangan:
+      HDD: Berfungsi sebagai DNS Server.
+      Fairy: Berfungsi sebagai DHCP Server.
+      Web Servers: HIA, HollowZero.
+    Client:
+      Burnice: Memiliki 5 host.
+      Lycaon: Memiliki 20 host.
+      Policeboo: Memiliki 30 host.
+      Caesar: Memiliki 50 host
+      Ellen: Memiliki 100 host.
+      Jane: Memiliki 200 host.
+
  Berikut topologi jaringan pada GNS3 seperti yang diberikan soal:
  <img src="img/topo-it32.png">
 
