@@ -51,13 +51,13 @@ Soal:
 Berikut adalah tabel routing, tabel pembagian IP VLSM, dan tree VLSM.
 
 #### Tabel Routing:
-<img src="img/rute-vlsm.png">
+<img src="img/routing-vlsm.png">
 
 #### Tabel Pembagian IP VLSM:
 <img src="img/ip-vlsm.png">
 
 #### Tree VLSM:
-<img src="img/TreeModul5.png">
+<img src="img/Treemodul5.png">
 
 Untuk topologi jaringan pada GNS3 dengan lingkaran pembagian IP VLSM adalah sebagai berikut.
 <img src="img/topo-vlsm.png">
