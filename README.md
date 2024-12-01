@@ -49,13 +49,13 @@ Soal:
     **Setelah membagi alamat IP menggunakan VLSM, gambarkan pohon subnet yang menunjukkan hierarki pembagian IP di jaringan New Eridu. Lingkari subnet-subnet yang akan dilewati dalam jaringan.**
 Berikut adalah tabel routing, tabel pembagian IP VLSM, dan tree VLSM.
 Tabel Routing:
-<img src="img/topo-it32.png">
+<img src="img/rute-vlsm.png">
 Tabel Pembagian IP VLSM:
-<img src="img/topo-it32.png">
+<img src="img/ip-vlsm.png">
 Tree VLSM:
-<img src="img/topo-it32.png">
+<img src="img/TreeModul5.png">
 Untuk topologi jaringan pada GNS3 dengan lingkaran pembagian IP VLSM adalah sebagai berikut.
-<img src="img/topo-it32.png">
+<img src="img/topo-vlsm.png">
     
 ## Misi 2: Menemukan Jejak Sang Peretas
 <a name="perhitungan-cidr"></a>
