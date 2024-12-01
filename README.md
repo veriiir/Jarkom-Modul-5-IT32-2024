@@ -30,16 +30,17 @@ Soal:
     **Sebuah topologi sederhana menggambarkan jaringan New Eridu:**
     <img src="img/topo-soal.png">
     **Keterangan:
-    - HDD: Berfungsi sebagai DNS Server.
-    - Fairy: Berfungsi sebagai DHCP Server.
-    - Web Servers: HIA, HollowZero.
-    - Client:
+      - HDD: Berfungsi sebagai DNS Server.
+      - Fairy: Berfungsi sebagai DHCP Server.
+      - Web Servers: HIA, HollowZero.
+     - Client:
       - Burnice: Memiliki 5 host.
       - Lycaon: Memiliki 20 host.
       - Policeboo: Memiliki 30 host.
       - Caesar: Memiliki 50 host
       - Ellen: Memiliki 100 host.
       - Jane: Memiliki 200 host.**
+      
  Berikut topologi jaringan pada GNS3 seperti yang diberikan soal:
  <img src="img/topo-it32.png">
 
@@ -48,12 +49,16 @@ Soal:
 Soal:
     **Setelah membagi alamat IP menggunakan VLSM, gambarkan pohon subnet yang menunjukkan hierarki pembagian IP di jaringan New Eridu. Lingkari subnet-subnet yang akan dilewati dalam jaringan.**
 Berikut adalah tabel routing, tabel pembagian IP VLSM, dan tree VLSM.
-Tabel Routing:
+
+#### Tabel Routing:
 <img src="img/rute-vlsm.png">
-Tabel Pembagian IP VLSM:
+
+#### Tabel Pembagian IP VLSM:
 <img src="img/ip-vlsm.png">
-Tree VLSM:
+
+#### Tree VLSM:
 <img src="img/TreeModul5.png">
+
 Untuk topologi jaringan pada GNS3 dengan lingkaran pembagian IP VLSM adalah sebagai berikut.
 <img src="img/topo-vlsm.png">
     
