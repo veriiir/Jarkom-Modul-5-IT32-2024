@@ -72,13 +72,297 @@ Untuk topologi jaringan pada GNS3 dengan lingkaran pembagian IP VLSM adalah seba
 ### No 3
 <a name="no-3"></a>
 Soal:
-Setelah pembagian IP selesai, buatlah konfigurasi rute untuk menghubungkan semua subnet dengan benar di jaringan New Eridu. Pastikan perangkat dapat saling terhubung.
+**Setelah pembagian IP selesai, buatlah konfigurasi rute untuk menghubungkan semua subnet dengan benar di jaringan New Eridu. Pastikan perangkat dapat saling terhubung.**
+Sebelum melakukan konfigurasi routing, konfigurasikan network interface tiap node yang ada pada jaringan dengan konfigurasi berikut.
+#### Router
+NewEridu
+```bash
+auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+    address 10.79.1.22
+    netmask 255.255.255.252
+
+auto eth2
+iface eth2 inet static
+    address 10.79.1.34
+    netmask 255.255.255.252
+
+up echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+ScoutOutpost
+```bash
+auto eth0
+iface eth0 inet static
+    address 10.79.1.1
+    netmask 255.255.255.248
+    gateway 10.79.1.3
+
+auto eth1
+iface eth1 inet static
+    address 10.79.1.18
+    netmask 255.255.255.252
+
+up echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+
+#### DHCP Relay
+SixStreet
+```bash
+auto eth0
+iface eth0 inet static
+    address 10.79.1.21
+    netmask 255.255.255.252
+    gateway 10.79.1.22
+
+auto eth1
+iface eth1 inet static
+    address 10.79.1.3
+    netmask 255.255.255.248
+
+auto eth2
+iface eth2 inet static
+    address 10.79.1.14
+    netmask 255.255.255.248
+
+up echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+OuterRing
+```bash
+auto eth0
+iface eth0 inet static
+    address 10.79.1.2
+    netmask 255.255.255.248
+    gateway 10.79.1.3
+
+auto eth1
+iface eth1 inet static
+    address 10.79.1.126
+    netmask 255.255.255.192
+
+up echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+LuminaSquare
+```bash
+auto eth0
+iface eth0 inet static
+    address 10.79.1.33
+    netmask 255.255.255.252
+    gateway 10.79.1.34
+
+auto eth1
+iface eth1 inet static
+    address 10.79.1.27
+    netmask 255.255.255.248
+
+auto eth2
+iface eth2 inet static
+    address 10.79.0.254
+    netmask 255.255.255.0
+
+up echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+BalletTwins
+```bash
+auto eth0
+iface eth0 inet static
+    address 10.79.1.25
+    netmask 255.255.255.248
+    gateway 10.79.1.27
+
+auto eth1
+iface eth1 inet static
+    address 10.79.1.254
+    netmask 255.255.255.128
+
+up echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+
+#### DHCP Server
+Fairy
+```bash
+auto eth0
+iface eth0 inet static
+    address 10.79.1.10
+    netmask 255.255.255.248
+    gateway 10.79.1.14
+
+up echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+
+#### DNS Server
+HDD
+```bash
+auto eth0
+iface eth0 inet static
+    address 10.79.1.9
+    netmask 255.255.255.248
+    gateway 10.79.1.14
+
+up echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+
+#### Web Server
+HollowZero
+```bash
+auto eth0
+iface eth0 inet static
+    address 10.79.1.17
+    netmask 255.255.255.252
+    gateway 10.79.1.18
+
+up echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+HIA
+```bash
+auto eth0
+iface eth0 inet static
+    address 10.79.1.26
+    netmask 255.255.255.248
+    gateway 10.79.1.27
+
+up echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+
+#### Client
+Caesar, Burnice, Jane, Policeboo, Ellen, Lycaon:
+```bash
+auto eth0
+iface eth0 inet dhcp
+
+up echo nameserver 192.168.122.1 > /etc/resolv.conf
+```
+
+Setelah melakukan konfigurasi network, jalankan command dibawah pada tiap router dan DHCP relay agar antar subnet dapat terhubung.
+#### NewEridu
+```bash
+post-up route add -net 10.79.1.16 netmask 255.255.255.252 gw 10.79.1.21
+post-up route add -net 10.79.1.64 netmask 255.255.255.192 gw 10.79.1.21
+post-up route add -net 10.79.1.0 netmask 255.255.255.248 gw 10.79.1.21
+post-up route add -net 10.79.1.8 netmask 255.255.255.248 gw 10.79.1.21
+post-up route add -net 10.79.1.128 netmask 255.255.255.128 gw 10.79.1.33
+post-up route add -net 10.79.1.24 netmask 255.255.255.248 gw 10.79.1.33
+post-up route add -net 10.79.0.0 netmask 255.255.255.0 gw 10.79.1.33
+```
+
+#### Sixstreet
+```bash
+post-up route add -net 10.79.1.16 netmask 255.255.255.252 gw 10.79.1.1
+post-up route add -net 10.79.1.64 netmask 255.255.255.192 gw 10.79.1.2
+```
+
+#### ScoutOutpost, OuterRing
+```bash
+post-up route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.79.1.3
+```
+
+#### LuminaSquare
+```bash
+post-up route add -net 10.79.1.128 netmask 255.255.255.128 gw 10.79.1.25
+```
+
+#### BalletTwins
+```bash
+post-up route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.79.1.27
+```
 
 ### No 4
 <a name="no-4"></a>
 Soal:
+Konfigurasi → dikerjakan setelah misi 2 nomor 1
 
+- Fairy sebagai DHCP Server agar perangkat yang berada dalam Burnice, Caesar, Ellen, Jane, Lycaon, dan Policeboo dapat menerima alamat IP secara otomatis.
+- OuterRing, BalletTwins, Sixstreet dan LuminaSquare Sebagai DHCP Relay
+- HDD sebagai DNS server
+- HIA dan HollowZero Sebagai Web server (gunakan apache)
+index.html
+```bash
+Welcome to {hostname}
+```
+#### Script Konfigurasi
+1. DHCP Relay (OuterRing, SixStreet, LuminaSquare, BalletTwins)
+```bash
+apt-get update
+apt-get install isc-dhcp-relay -y
+service isc-dhcp-relay start
 
+echo 'SERVERS="10.79.1.10"
+INTERFACES="eth0 eth1 eth2 eth3"
+OPTIONS=' > /etc/default/isc-dhcp-relay
+
+service isc-dhcp-relay restart
+```
+2. DHCP Server (Fairy)
+```bash
+apt-get update
+apt-get install isc-dhcp-server netcat -y
+
+echo 'INTERFACESv4="eth0"' > /etc/default/isc-dhcp-server
+
+echo 'subnet 10.79.1.64 netmask 255.255.255.192 {
+    range 10.79.1.65 10.79.1.125;
+    option routers 10.79.1.126;
+    option broadcast-address 10.79.1.63;
+    option domain-name-servers 10.79.1.9;
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+subnet 10.79.0.0 netmask 255.255.255.0 {
+    range 10.79.0.1 10.79.0.253;
+    option routers 10.79.0.254;
+    option broadcast-address 10.79.0.255;
+    option domain-name-servers 10.79.1.9;
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+subnet 10.79.1.128 netmask 255.255.255.128 {
+    range 10.79.1.129 10.79.1.253;
+    option routers 10.79.1.254;
+    option broadcast-address 10.79.1.255;
+    option domain-name-servers 10.79.1.9;
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+subnet 10.79.1.8 netmask 255.255.255.248 {
+}'> /etc/dhcp/dhcpd.conf
+
+service isc-dhcp-server restart
+```
+3. DNS Server (HDD)
+```bash
+apt-get update
+apt-get install bind9 -y
+
+echo 'options {
+        directory "/var/cache/bind";
+
+        forwarders {
+            192.168.122.1;
+        };
+
+        allow-query{any;};
+
+        auth-nxdomain no;    # conform to RFC1035
+        listen-on-v6 { any; };
+};' > /etc/bind/named.conf.options
+
+service bind9 restart
+```
+4. Web Server (HIA, HollowZero)
+```bash
+apt-get update
+apt-get install apache2 -y
+
+HOST=$(hostname)
+echo "Welcome to $HOST" > /var/www/html/index.html
+
+service apache2 restart
+```
 ## Misi 2: Menemukan Jejak Sang Peretas
 <a name="no-20"></a>
 ### No 1
