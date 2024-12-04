@@ -471,6 +471,39 @@ a. Web server harus memblokir aktivitas scan port yang melebihi 25 port secara o
 b. Penyerang yang terblokir tidak dapat melakukan ping, nc, atau curl ke HIA.
 c. Catat log dari iptables untuk keperluan analisis dan dokumentasikan dalam format PDF.
 
+Buat konfigurasi untuk memblokir aktivitas port scanning yang melebihi 25 port dalam rentang 10 detik, penyerang yang diblokir tidak bisa ping, nc, atau curl ke HIA, log dari iptables akan tercatat untuk analisis.
+```bash
+iptables -N PORTSCAN
+
+# Mendeteksi aktivitas baru dan menandai IP
+iptables -A INPUT -p tcp -m state --state NEW -m recent --set --name portscan
+
+# Blokir IP yang melakukan lebih dari 25 koneksi dalam 10 detik
+iptables -A INPUT -p tcp -m state --state NEW -m recent --update --seconds 10 --hitcount 25 --name portscan -j DROP
+
+# untuk melakukan logging
+iptables -A INPUT -p tcp -m state --state NEW -m recent --update --seconds 10 --hitcount 25 --name portscan -j LOG --log-prefix "Port Scan Detected: " --log-level 7
+
+#  Blokir ICMP (ping)
+iptables -A INPUT -p icmp -m recent --name portscan --rcheck -j DROP
+
+# Blokir TCP dan UDP
+iptables -A INPUT -p tcp -m recent --name portscan --rcheck -j DROP
+iptables -A INPUT -p udp -m recent --name portscan --rcheck -j DROP
+
+#  Konfigurasi Forward Chain
+iptables -A FORWARD -m recent --name portscan --rcheck -j DROP
+```
+#### Testing:
+
+Tes melakukan nmap dengan Jane
+
+<img src="img/no6-jane.png">
+
+Tes dengan Policeboo
+
+<img src="img/no6-policeboo.png">
+
 ### No 7
 <a name="no-27"></a>
 Soal:
