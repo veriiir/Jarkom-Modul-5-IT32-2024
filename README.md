@@ -401,7 +401,35 @@ Test ping node lain ke fairy
 ### No 3
 <a name="no-23"></a>
 Soal:
-Selain itu, agar kejadian sebelumnya tidak terulang, hanya Fairy yang dapat mengakses HDD. Gunakan nc (netcat) untuk memastikan akses ini. [hapus aturan iptables setelah pengujian selesai agar internet tetap dapat diakses.]
+**Selain itu, agar kejadian sebelumnya tidak terulang, hanya Fairy yang dapat mengakses HDD. Gunakan nc (netcat) untuk memastikan akses ini. [hapus aturan iptables setelah pengujian selesai agar internet tetap dapat diakses.]**
+
+Buat konfigurasi iptables untuk melarang ping dari semua jaringan, lalu tambahkan ip Fairy agar diijinkan ping
+```bash
+iptables -A INPUT -s 10.79.1.10 -j ACCEPT
+iptables -A INPUT -j DROP
+```
+#### Testing:
+Tes dengan ping:
+Fairy bisa ping HDD
+
+<img src="img/no3-fairy.png">
+
+Selain Fairy tidak bisa ping HDD
+
+<img src="img/no3-hollow.png">
+
+Test dengan netcat:
+Lakukan tes nc di Fairy
+
+<img src="img/no3-ncfairy.png">
+
+Tes nc di BalletTwins
+
+<img src="img/no3-ncballet.png">
+
+nc yang diterima oleh HDD hanya dari Fairy
+
+<img src="img/no3-nchdd.png">
 
 ### No 4
 <a name="no-24"></a>
