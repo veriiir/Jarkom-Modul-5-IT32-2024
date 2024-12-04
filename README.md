@@ -434,8 +434,26 @@ nc yang diterima oleh HDD hanya dari Fairy
 ### No 4
 <a name="no-24"></a>
 Soal:
-Fairy mendeteksi aktivitas mencurigakan di server Hollow. Namun, berdasarkan peraturan polisi New Eridu, Hollow hanya boleh diakses pada hari Senin hingga Jumat dan hanya oleh faksi SoC (Burnice & Caesar) dan PubSec (Jane & Policeboo). Karena hari ini hari Sabtu, mereka harus menunggu hingga hari Senin. Gunakan curl untuk memastikan akses ini.
+**Fairy mendeteksi aktivitas mencurigakan di server Hollow. Namun, berdasarkan peraturan polisi New Eridu, Hollow hanya boleh diakses pada hari Senin hingga Jumat dan hanya oleh faksi SoC (Burnice & Caesar) dan PubSec (Jane & Policeboo). Karena hari ini hari Sabtu, mereka harus menunggu hingga hari Senin. Gunakan curl untuk memastikan akses ini.**
 
+Jalankan script berikut pada web server HollowZero.
+```bash
+iptables -A INPUT -s 10.79.1.64/26 -m time --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+iptables -A INPUT -s 10.79.0.0/24 -m time --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
+iptables -A INPUT -j REJECT
+```
+#### Testing:
+Uji pada Burnice di hari (Rabu dan Sabtu):
+
+<img src="img/no4-burnice.png">
+
+Uji pada Policeboo di hari (Rabu dan Sabtu):
+
+<img src="img/no4-policeboo.png">
+
+Uji pada selain Burnice, Caesar, Jane, dan Policeboo:
+
+<img src="img/no4-ellen.png">
 
 ### No 5
 <a name="no-25"></a>
