@@ -369,6 +369,7 @@ service apache2 restart
 <a name="no-21"></a>
 Soal: 
 **Agar jaringan di New Eridu bisa terhubung ke luar (internet), kalian perlu mengkonfigurasi routing menggunakan iptables. Namun, kalian tidak diperbolehkan menggunakan MASQUERADE.**
+
 Jalankan script berikut sebelum misi 1 no 4 pada router NewEridu agar dapat mengakses internet.
 ```bash
 ETH0_IP=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
@@ -377,7 +378,22 @@ iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source $ETH0_IP
 ### No 2
 <a name="no-22"></a>
 Soal:
-Karena Fairy adalah AI yang sangat berharga, kalian perlu memastikan bahwa tidak ada perangkat lain yang bisa melakukan ping ke Fairy. Tapi Fairy tetap dapat mengakses seluruh perangkat.
+**Karena Fairy adalah AI yang sangat berharga, kalian perlu memastikan bahwa tidak ada perangkat lain yang bisa melakukan ping ke Fairy. Tapi Fairy tetap dapat mengakses seluruh perangkat.**
+
+Jalankan script berikut di dns server Fairy
+```bash
+iptables -A OUTPUT -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -j DROP
+```
+#### Testing:
+Test ping dari fairy ke node lain
+<img src="img/no2-fairy.png">
+Test ping node lain ke fairy
+<img src="img/no2-aouter.png">
+<img src="img/no2-hollow.png">
+<img src="img/no2-hia.png">
+<img src="img/no2-ballet.png">
 
 ### No 3
 <a name="no-23"></a>
@@ -388,6 +404,7 @@ Selain itu, agar kejadian sebelumnya tidak terulang, hanya Fairy yang dapat meng
 <a name="no-24"></a>
 Soal:
 Fairy mendeteksi aktivitas mencurigakan di server Hollow. Namun, berdasarkan peraturan polisi New Eridu, Hollow hanya boleh diakses pada hari Senin hingga Jumat dan hanya oleh faksi SoC (Burnice & Caesar) dan PubSec (Jane & Policeboo). Karena hari ini hari Sabtu, mereka harus menunggu hingga hari Senin. Gunakan curl untuk memastikan akses ini.
+
 
 ### No 5
 <a name="no-25"></a>
