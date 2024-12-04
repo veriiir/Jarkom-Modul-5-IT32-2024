@@ -458,18 +458,31 @@ Uji pada selain Burnice, Caesar, Jane, dan Policeboo:
 ### No 5
 <a name="no-25"></a>
 Soal:
-Sembari menunggu, Fairy menyarankan Phaethon untuk berlatih di server HIA dan meminta bantuan dari faksi Victoria (Ellen & Lycaon) dan PubSec. Akses HIA hanya diperbolehkan untuk
+**Sembari menunggu, Fairy menyarankan Phaethon untuk berlatih di server HIA dan meminta bantuan dari faksi Victoria (Ellen & Lycaon) dan PubSec. Akses HIA hanya diperbolehkan untuk
 a. Ellen dan Lycaon pada jam 08.00-21.00.
 b. Jane dan Policeboo pada jam 03.00-23.00. (hak kepolisian)
-Gunakan Curl untuk memastikan akses ini.
+Gunakan Curl untuk memastikan akses ini.**
+
+Script iptables di web server HIA:
+```bash
+iptables -A INPUT -s 10.79.0.0/24 -m time --timestart 03:00 --timestop 23:00 -j ACCEPT
+iptables -A INPUT -s 10.79.1.128/25 -m time --timestart 08:00 --timestop 21:00 -j ACCEPT
+iptables -A INPUT -j REJECT
+```
+
+#### Testing:
+
+Test Jane curl ke HIA masih bisa karena masih dalam waktu yang diperbolehkan
+
+<img src="img/no5-jane.png">
 
 ### No 6
 <a name="no-26"></a>
 Soal:
-Sebagai bagian dari pelatihan, PubSec diminta memperketat keamanan jaringan di server HIA. Jane dan Policeboo melakukan simulasi port scan menggunakan nmap pada rentang port 1-100.
+**Sebagai bagian dari pelatihan, PubSec diminta memperketat keamanan jaringan di server HIA. Jane dan Policeboo melakukan simulasi port scan menggunakan nmap pada rentang port 1-100.
 a. Web server harus memblokir aktivitas scan port yang melebihi 25 port secara otomatis dalam rentang waktu 10 detik.
 b. Penyerang yang terblokir tidak dapat melakukan ping, nc, atau curl ke HIA.
-c. Catat log dari iptables untuk keperluan analisis dan dokumentasikan dalam format PDF.
+c. Catat log dari iptables untuk keperluan analisis dan dokumentasikan dalam format PDF.**
 
 Buat konfigurasi untuk memblokir aktivitas port scanning yang melebihi 25 port dalam rentang 10 detik, penyerang yang diblokir tidak bisa ping, nc, atau curl ke HIA, log dari iptables akan tercatat untuk analisis.
 ```bash
