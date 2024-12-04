@@ -368,8 +368,12 @@ service apache2 restart
 ### No 1
 <a name="no-21"></a>
 Soal: 
-Agar jaringan di New Eridu bisa terhubung ke luar (internet), kalian perlu mengkonfigurasi routing menggunakan iptables. Namun, kalian tidak diperbolehkan menggunakan MASQUERADE.
-
+**Agar jaringan di New Eridu bisa terhubung ke luar (internet), kalian perlu mengkonfigurasi routing menggunakan iptables. Namun, kalian tidak diperbolehkan menggunakan MASQUERADE.**
+Jalankan script berikut sebelum misi 1 no 4 pada router NewEridu agar dapat mengakses internet.
+```bash
+ETH0_IP=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source $ETH0_IP
+```
 ### No 2
 <a name="no-22"></a>
 Soal:
