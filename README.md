@@ -285,7 +285,7 @@ Welcome to {hostname}
 1. DHCP Relay (OuterRing, SixStreet, LuminaSquare, BalletTwins)
 ```bash
 apt-get update
-apt-get install isc-dhcp-relay -y
+apt-get install isc-dhcp-relay netcat -y
 service isc-dhcp-relay start
 
 echo 'SERVERS="10.79.1.10"
@@ -336,7 +336,7 @@ service isc-dhcp-server restart
 3. DNS Server (HDD)
 ```bash
 apt-get update
-apt-get install bind9 -y
+apt-get install bind9 netcat -y
 
 echo 'options {
         directory "/var/cache/bind";
@@ -356,7 +356,7 @@ service bind9 restart
 4. Web Server (HIA, HollowZero)
 ```bash
 apt-get update
-apt-get install apache2 -y
+apt-get install apache2 netcat -y
 
 HOST=$(hostname)
 echo "Welcome to $HOST" > /var/www/html/index.html
