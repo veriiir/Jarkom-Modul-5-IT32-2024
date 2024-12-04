@@ -388,9 +388,12 @@ iptables -A INPUT -j DROP
 ```
 #### Testing:
 Test ping dari fairy ke node lain
+
 <img src="img/no2-fairy.png">
+
 Test ping node lain ke fairy
-<img src="img/no2-aouter.png">
+
+<img src="img/no2-outer.png">
 <img src="img/no2-hollow.png">
 <img src="img/no2-hia.png">
 <img src="img/no2-ballet.png">
